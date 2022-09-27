@@ -23,6 +23,8 @@ const prod8 = new Producto(8, "Inducol", 12000, 2);
 
 productos.push(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8);
 
+productosCarrito = [];
+
 function mostrarProductos(productos){
     const contenedor = document.getElementById("container");
     console.log(contenedor);
@@ -38,7 +40,7 @@ function mostrarProductos(productos){
         
         const button = document.getElementById(`button${producto.id}`);
         button.addEventListener('click', () =>{
-            productosCarrito(`${producto.id}`)
+            productosCarrito.push(`${producto.id}`);
             alert(`${producto.nombre} fue agregado al carrito!`)
         })
     });
