@@ -23,7 +23,8 @@ const prod8 = new Producto(8, "Inducol", 12000, 2);
 
 productos.push(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8);
 
-productosCarrito = [];
+const productosCarrito = [];
+
 
 function mostrarProductos(productos){
     const contenedor = document.getElementById("container");
@@ -40,8 +41,10 @@ function mostrarProductos(productos){
         
         const button = document.getElementById(`button${producto.id}`);
         button.addEventListener('click', () =>{
-            productosCarrito.push(`${producto.id}`);
-            alert(`${producto.nombre} fue agregado al carrito!`)
+            productosCarrito.push(producto);
+            localStorage.setItem("carrito", JSON.stringify(productosCarrito));
+            const carrito = JSON.parse(localStorage.getItem("carrito"));
+            console.log(carrito);
         })
     });
 }
