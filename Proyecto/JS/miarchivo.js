@@ -44,12 +44,26 @@ function mostrarProductos(productos){
             productosCarrito.push(producto);
             localStorage.setItem("carrito", JSON.stringify(productosCarrito));
             const carrito = JSON.parse(localStorage.getItem("carrito"));
-            console.log(carrito);
+            Swal.fire({
+                title: `${producto.nombre} se ha agregado al carrito!`,
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            })
+            const div = document.createElement('div');
+            div.innerHTML += `<div class="carrito">
+                                    <h5> Su carrito contiene: </h5>
+                                    <p>${producto.nombre}: $${producto.precio} </p>
+                                 </div>`
+            contenedor.appendChild(div);
+            })
         })
-    });
+    };
+
+class Carrito{
+
 }
 
-class DetallePedido{
+class DetalleCarrito{
     constructor(producto, cantidad) {
         this.producto = producto;
         this.cantidad = cantidad;
