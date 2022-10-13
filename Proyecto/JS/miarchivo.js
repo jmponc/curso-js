@@ -10,35 +10,28 @@ class Producto{
     }
 }
 
-const productos = [];
-
-const prod1 = new Producto(1, "Linea Dorada", 30000, 1);
-const prod2 = new Producto(2, "Nimbus", 40000, 1);
-const prod3 = new Producto(3, "Finesse", 60000, 1);
-const prod4 = new Producto(4, "Brighton", 90000, 1);
-const prod5 = new Producto(5, "Confort Sensations", 15000, 2);
-const prod6 = new Producto(6, "World Luxury Tejido de Punto", 20000, 2);
-const prod7 = new Producto(7, "Imperial", 10000, 2);
-const prod8 = new Producto(8, "Inducol", 12000, 2);
-
-productos.push(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8);
-
 const productosCarrito = [];
 
+const lista = document.querySelector("#listado")
 
-function mostrarProductos(productos){
-    const contenedor = document.getElementById("container");
+function mostrarProductos(){
+    const contenedor = document.getElementById("listado");
     console.log(contenedor);
-    productos.forEach(producto => {
-        const card = document.createElement('card');
-        card.innerHTML += 
-                        `<div class="card" style="">
-                            <h5 class="card-title"> ${producto.nombre}</h5>
-                            <p class="card-text"> Precio: ${producto.precio}</p>
-                            <button class="" id="button${producto.id}"> Agregar al carrito </button>
-                        </div>`
-        contenedor.appendChild(card);
+    fetch("/data.json")
+    .then((res) => res.json())
+    .then((data) => {
+        data.forEach((producto) => {
+            const li = document.createElement("li")
+            li.innerHTML = `
+            <div class="card" style="">
+                <h5 class="card-title"> ${producto.nombre}</h5>
+                <p class="card-text"> Precio: ${producto.precio}</p>
+                <button class="" id="button${producto.id}"> Agregar al carrito </button>
+            </div>` 
         
+        lista.append(li)
+        
+
         const button = document.getElementById(`button${producto.id}`);
         button.addEventListener('click', () =>{
             productosCarrito.push(producto);
@@ -56,8 +49,9 @@ function mostrarProductos(productos){
                                  </div>`
             contenedor.appendChild(div);
             })
-        })
-    };
+        })    
+    })
+}
 
 class Carrito{
 
@@ -76,4 +70,4 @@ class DetalleCarrito{
         }
 }
 
-mostrarProductos(productos);
+mostrarProductos();
